@@ -1,0 +1,56 @@
+CREATE OR REPLACE PROCEDURE 2prak AS
+
+vname student.name%type;
+vsurname student.surname%type;
+vfname student.faculty_name%type;
+vcyear student.course_year%type;
+
+CURSOR stud IS
+	select name, surname, faculty_name, course_year
+	from student inner join faculty using (id_faculty)
+	order by course_year;
+	where course_year = kurss
+
+BEGIN
+	OPEN stud;
+	LOOP
+	FETCH stud INTO vname, vsurname, vfname, vcyear;
+	IF stud%rowcount = 0 THEN
+	DBMS_OUTPUT.put_line('There are no student in course'|| kurss ||' ! ');
+	ELSIF stud%rowcount = 1 THEN 
+	DBMS_OUTPUT.put_line('List of students for'|| kurss ||' ! ');
+	
+	END IF;
+
+	EXIT WHEN stud%notfound;
+
+	DBMS_OUTPUT.put_line(stud%rowcount ||' . ' || vname||' ' ||vsurname||' ' ||vfname||' '||vcyear);
+	END LOOP;
+	CLOSE stud;
+END;  
+/
+
+
+CREATE OR REPLACE PROCEDURE 2prakFOR (kurss IN student.course_year%type) AS
+
+CURSOR stud IS
+	select name, surname, faculty_name, course_year
+	from student inner join faculty using (id_faculty)
+	order by course_year;
+	where course_year = kurss
+	k number := 1;
+
+BEGIN
+	FOR i IN stud
+	LOOP
+	IF k = 1 THEN
+	DBMS_OUTPUT.put_line('List of students for'|| kurss ||' ! ');
+	END IF;
+	DBMS_OUTPUT.put_line(k||' . ' || i.name||' ' ||i.surname||' ' ||i.faculty_name||' '||i.course_year);
+	k := k+1;
+	END LOOP;
+	IF k = 1 THEN
+	DBMS_OUTPUT.put_line('There are no students of this course. No'|| kurss ||' ! ');
+	END IF;
+END;  
+/
