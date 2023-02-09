@@ -1,0 +1,31 @@
+CREATE OR REPLACE PROCEDURE 2prak AS
+
+vname student.name%type;
+vsurname student.surname%type;
+vfname student.faculty_name%type;
+vcyear student.course_year%type;
+
+CURSOR stud IS
+	select name, surname, faculty_name, course_year
+	from student iner join faculty using (id_faculty)
+	order by course_year;
+	where course_year = kurss
+
+BEGIN
+	OPEN stud;
+	LOOP
+	FETCH stud INTO vname, vsurname, vfname, vcyear;
+	IF stud%rowcount = 0 THEN
+	DBMS_OUTPUT.put_line('There are no student in course'|| kurss ||' ! ');
+	ELSIF stud%rowcount = 1 THEN 
+	DBMS_OUTPUT.put_line('List of students for'|| kurss ||' ! ');
+	
+	END IF;
+
+	EXIT WHEN stud%notfound;
+
+	DBMS_OUTPUT.put_line(stud%rowcount ||' . ' || vname||' ' ||vsurname||' ' ||vfname||' '||vcyear);
+	END LOOP;
+	CLOSE stud;
+END;  
+/
