@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE s_emp (s in emp.sal%type) AS
+e_name emp.ename%type;
+e_sal emp.sal%type;
+e_job emp.job%type;
+CURSOR sal AS
+select ename, sal, job from emp;
+BEGIN
+OPEN sal;
+FETCH sal INTO e_name, e_sal, e_job;
+dbms_output.put_line('Employees, receiving more than ' || s || ' per month');
+dbms_output.put_line(e_name || ' receive ' || e_sal || ' EUR and this employees job is ' || e_job);
+CLOSE sal;
+END;
+/
