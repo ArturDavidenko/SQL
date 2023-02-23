@@ -1,3 +1,5 @@
+1.
+
 CREATE OR REPLACE PROCEDURE s_emp (s in emp.sal%type) AS
 	CURSOR sal IS
 	select ename, sal, job from emp where sal >= s;
