@@ -10,3 +10,24 @@ BEGIN
 	END LOOP;
 END;
 /
+
+CREATE OR REPLACE FUNCTION s_emp_f (d_id in emp.empno%type)
+	return VARCHAR
+	is 
+	returned_name varchar2(20);
+BEGIN
+	select ename into returned_name from emp where empno=d_id;
+	return returned+name;
+END;
+
+CREATE OR REPLACE PROCEDURE s_emp (s IN emp.sal%type) AS
+	cursor sal is 
+	select empno, sal, job from emp where sal >= s;
+	emp_name varchar2(20);
+BEGIN
+	for i in sal
+LOOP 
+	emp_name := s_emp_f(i.empno);
+	DBMS_OUTPUT.put_line(emp_name||' sanem '||i.sal||' un ta darbnieka alga ir  '||i.job);
+END LOOP;
+END;
