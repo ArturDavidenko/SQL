@@ -31,3 +31,6 @@ LOOP
 	DBMS_OUTPUT.put_line(emp_name||' sanem '||i.sal||' un ta darbnieka alga ir  '||i.job);
 END LOOP;
 END;
+
+2.
+
