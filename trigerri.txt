@@ -1,0 +1,21 @@
+3(16) uzd
+
+create or replace trigger casc_del_tr
+after delete on student 
+for each ROW 
+
+DECLARE
+	comp money.compinsation%type;
+	stip money.stipend%type;	
+
+BEGIN
+
+select sum(compensation), sum(stipend) into comp, stip from money where id_student=:old.id_student gro up by id_student;
+delete from money where money.id_student = :old.id_student;
+DBMS_OUTPUT.put_line('Deleted info from money: ' || comp ||' comp amnt & '|| stip ||'stip amnt '); 
+end;
+/
+
+
+
+
