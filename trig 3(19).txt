@@ -21,3 +21,11 @@ BEGIN
 END IF;
 END;
 /
+
+//need to trigger work! 
+Create table audit_reg(
+field1 vachar2(50),
+field2 vachar2(50),
+field3 vachar2(50),
+field4 vachar2(50),
+field5 vachar2(50));
