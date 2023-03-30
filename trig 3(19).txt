@@ -1,0 +1,16 @@
+CREATE OR REPLACE TRIGGER TRAudit 
+AFTER INSERT OR DELETE OR UPDATE OF sal on emp
+FOR EACH ROW
+DECLARE 
+t varchar2(40) :=  SYSTIMESTAMP;
+u varchar2(5) := USER;
+BEGIN
+	IF INSERTING THEN 
+		insert into audit_reg values (t, u, 'added emp', 'NR: ' ||:NEW.empno, 'Name: '||:NEW.ename);
+	ELSIF DELETING THEN 
+		insert into audit_reg values (t, u, 'DELETED emp', 'NR: ' ||:OLD.empno, 'Name: '||:OLD.ename);
+	ELSIF UPDATING THEN
+		insert into audit_reg values (t, u, 'Changes sal:', 'OLD: ' ||:OLD.sal, 'New: '||:NEW.sal);
+END IF;
+END;
+/
