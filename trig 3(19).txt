@@ -8,11 +8,11 @@ BEGIN
 	IF INSERTING THEN 
 		insert into audit_reg values (t, u, 'added emp', 'NR: ' ||:NEW.empno, 'Name: '||:NEW.ename);
 		DBMS_OUTPUT.put_line('-----------------------------------------');
-		DBMS_OUTPUT.put_line('Table EMP was added new empno: '||:NEW.empno|| ' - '||:NEW.ename)
+		DBMS_OUTPUT.put_line('Table EMP was added new empno: '||:NEW.empno|| ' - '||:NEW.ename);
 	ELSIF DELETING THEN 
 		insert into audit_reg values (t, u, 'DELETED emp', 'NR: ' ||:OLD.empno, 'Name: '||:OLD.ename);
 		DBMS_OUTPUT.put_line('-----------------------------------------');
-		DBMS_OUTPUT.put_line('Table EMP was deleted empno: '||:OLD.empno|| ' - '||:OLD.ename)
+		DBMS_OUTPUT.put_line('Table EMP was deleted empno: '||:OLD.empno|| ' - '||:OLD.ename);
 	ELSIF UPDATING THEN
 		insert into audit_reg values (t, u, 'Changes sal:', 'OLD: ' ||:OLD.sal, 'New: '||:NEW.sal);
 		DBMS_OUTPUT.put_line('-----------------------------------------');
